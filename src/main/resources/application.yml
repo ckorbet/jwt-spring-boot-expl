@@ -1,0 +1,67 @@
+server:
+ servlet:
+  context-path: /cartorgon
+ port: 9080
+ 
+info:
+ application:
+  name: jwt-spring-boot-exp
+  description: Demo project for JWT with Spring Boot
+  type: Spring Boot 2 RESTful MicroService
+  version: 0.0.1-SNAPSHOT
+ developers:
+  - author:     
+     name: Carlos Torres
+     email: carlos.a.torres-gonzalez@capgemini.com
+     role: Architect
+  - author:     
+     name: Carlos Torres
+     email: carlos.a.torres-gonzalez@capgemini.com
+     role: Backend developer
+ contributors:
+  - author:     
+     name: Carlos Torres
+     email: carlos.a.torres-gonzalez@capgemini.com
+     role: Tester
+
+management:
+ endpoint:
+  shutdown:
+   enabled: true
+ endpoints:
+  beans:
+   enabled: false
+  web:
+   base-path: /actuator
+   exposure:
+    include: '*'
+    exclude: loggers
+ security:
+  enabled: false
+
+spring:
+ application:
+  name: jwt-spring-boot-exp
+  jwt:
+   passphrase: myPassphrase
+   expiracy: 18000
+ jmx:
+  default-domain: jwt.spring.boot.exp
+ h2:
+  console:
+   path: /h2-console
+   settings:
+    trace: false
+    web-allow-others: false
+ 
+ datasource:
+  url: jdbc:h2:mem:testdb
+  driverClassName: org.h2.Driver
+  username: sa
+  password:
+  
+ jpa:
+  open-in-view: false
+  database-platform: org.hibernate.dialect.H2Dialect
+  hibernate:
+   ddl-auto: update
