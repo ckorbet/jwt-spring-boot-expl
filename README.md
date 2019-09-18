@@ -5,13 +5,7 @@ Demo Project for JWT with Spring Boot
 
 ## Fwks., Tools and Versions
 - Java 11
-- Spring Boot 2.1.8.RELEASE
--- Actuator
--- Web
--- Security
--- DevTools
--- JPA
--- H2
+- Spring Boot 2.1.8.RELEASE _(Actuator + Web + Security + DevTools + JPA + H2)_
 - [JWT](https://jwt.io/) 0.9.1
 - [Lombok](https://projectlombok.org/) 1.18.1
 - [AssertJ](https://joel-costigliola.github.io/assertj/) 3.13.2
