@@ -1,6 +1,9 @@
 package com.cartorgon.jsbe.security.impl;
 
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -24,11 +27,14 @@ public class JwtUserDetailsServiceImpl implements JwtUserDetailsService {
 			throw new IllegalArgumentException("Username cannot be null or empty");
 		}
 		final UserDto userDto = this.userService.findUserByUsername(username);
+		UserDetails userDetails = null;
 		if(userDto == null) {
 			throw new UsernameNotFoundException(String.format("Username '%s' not found", username));
 		} else {
 			log.info(String.format("User '%s' found. Building details.....", username));
+			userDetails = new User(userDto.getUsername(), userDto.getPassword(), Collections.emptyList());
+			log.info("User details built");
 		}
-		return null;
+		return userDetails;
 	}
 }

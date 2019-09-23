@@ -20,5 +20,8 @@ Demo Project for JWT with Spring Boot
 
 ## References
 - [Spring Boot Security + JSON Web Token (JWT) ''Hello World'' Example _(by DZone)_](https://dzone.com/articles/spring-boot-security-json-web-tokenjwt-hello-world)
+- [Spring Boot Security + JWT Hello World Example _(by Medium)_](https://medium.com/swlh/spring-boot-security-jwt-hello-world-example-b479e457664c)
+- [Password storage update _(by spring.io)_](https://spring.io/blog/2017/11/01/spring-security-5-0-0-rc1-released#password-storage-updated)
+- [Hello Spring Security with Boot _(by spring.io)_)](https://docs.spring.io/spring-security/site/docs/current/guides/html5/helloworld-boot.html)
 - [jwt.io](https://jwt.io/)
 - [jwt _(wikipedia)_](https://es.wikipedia.org/wiki/JSON_Web_Token)
