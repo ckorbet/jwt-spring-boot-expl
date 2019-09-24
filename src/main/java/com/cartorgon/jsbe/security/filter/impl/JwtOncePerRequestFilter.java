@@ -35,7 +35,7 @@ public class JwtOncePerRequestFilter extends OncePerRequestFilter {
 	private JwtService jwtService;
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+	protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response, final FilterChain filterChain)
 			throws ServletException, IOException {
 		log.info("Filtering request.....");		
 		final String jwtToken = this.getJWTFromRequest(request);
@@ -46,7 +46,10 @@ public class JwtOncePerRequestFilter extends OncePerRequestFilter {
 					log.info("Username obtained from JWT");
 					final UserDetails userDetails = this.validateTokenVsUsername(jwtToken, username);
 					if(userDetails != null) {
-						this.setAuthenticationInSecurityContext(userDetails, request);			
+						this.setAuthenticationInSecurityContext(userDetails, request);
+						log.info("Token positively validate");
+					} else {
+						log.info("Token negastively validate");
 					}
 				}
 			} catch (final IllegalArgumentException iaExcp) {
@@ -54,7 +57,7 @@ public class JwtOncePerRequestFilter extends OncePerRequestFilter {
 			} catch (final ExpiredJwtException ejExcp) {
 				log.error("JWT token expired");
 			} catch(final MalformedJwtException mfjExcp) {
-				log.error("", mfjExcp);
+				log.error("JWT malformed", mfjExcp);
 			}
 		}		
 		filterChain.doFilter(request, response);
@@ -66,22 +69,22 @@ public class JwtOncePerRequestFilter extends OncePerRequestFilter {
 		if(requestTokenHeader != null && !requestTokenHeader.isBlank()) {
 			if(requestTokenHeader.startsWith(BEARER_STRING)) {
 				resJwtToken = requestTokenHeader.substring(BEARER_STRING.length());
-				log.info("Token extracted from request");
+				log.info("Bearer token extracted from request");
 			} else {
-				log.error("JWT Token does not begin with Bearer String");
+				log.info("Authorization token is not a Bearer token");
 			}			
 		} else {
-			log.warn("Request does not contains Authorization token");
+			log.warn("Request does not contain any Authorization token");
 		}
 		return resJwtToken;
 	}
 	
 	private void setAuthenticationInSecurityContext(final UserDetails userDetails, final HttpServletRequest request) {
 		final UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = 
-				new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+				new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
 		usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 		SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-		log.info("User authenticated and available from Spring Security Context");
+		log.info("User authenticated and available at Spring Security Context");
 	}
 	
 	private UserDetails validateTokenVsUsername(final String jwt, final String username) {

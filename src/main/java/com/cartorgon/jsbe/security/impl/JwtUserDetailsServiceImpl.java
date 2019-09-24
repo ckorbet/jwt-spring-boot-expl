@@ -22,10 +22,11 @@ public class JwtUserDetailsServiceImpl implements JwtUserDetailsService {
 	private UserService userService;
 
 	@Override
-	public final UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+	public final UserDetails loadUserByUsername(final String username) {
 		if(username == null || username.isEmpty()) {
 			throw new IllegalArgumentException("Username cannot be null or empty");
 		}
+		
 		final UserDto userDto = this.userService.findUserByUsername(username);
 		UserDetails userDetails = null;
 		if(userDto == null) {

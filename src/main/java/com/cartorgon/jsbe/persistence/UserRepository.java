@@ -9,5 +9,10 @@ import com.cartorgon.jsbe.model.impl.UserEntity;
 public interface UserRepository extends JpaRepository<UserEntity, String>{
 
 	@Query("FROM UserEntity WHERE username = :username")
-	UserEntity findByUsername(@Param("username") String username);
+	UserEntity findByUsername(@Param("username") final String username);
+	
+	@Query("FROM UserEntity WHERE username = :username AND password = :password")
+	UserEntity findByUsernameAndPassword(
+			@Param("username") final String username,
+			@Param("password") final String password);
 }

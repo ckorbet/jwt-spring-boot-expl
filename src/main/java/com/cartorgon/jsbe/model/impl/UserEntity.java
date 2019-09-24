@@ -23,7 +23,7 @@ public class UserEntity implements User, Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	private String id;
-	@Column(name = "username", columnDefinition = "VARCHAR", nullable = false)
+	@Column(name = "username", columnDefinition = "VARCHAR", nullable = false, unique = true)
 	private String username;
 	@Column(name = "password", columnDefinition = "VARCHAR", nullable = false)
 	private String password;

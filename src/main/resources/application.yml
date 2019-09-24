@@ -45,6 +45,8 @@ spring:
   jwt:
    passphrase: myPassphrase
    expiracy: 18000
+  authentication:
+   endpoint: "/authenticate"
  jmx:
   default-domain: jwt.spring.boot.exp
  h2:
